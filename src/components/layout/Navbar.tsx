@@ -1,47 +1,72 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "./ThemeToggle";
 import nexusLogo from "@/assets/nexus-x-logo.png";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/product", label: "Product" },
-  { href: "/use-cases", label: "Use Cases" },
   { href: "/company", label: "Company" },
+  { href: "/platforms", label: "Platforms" },
+  { href: "/industries", label: "Industries" },
+  { href: "/innovation", label: "Innovation" },
+  { href: "/investors", label: "Investors" },
+  { href: "/news", label: "News" },
+  { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
 ];
 
-export const Navbar = () => {
+interface NavbarProps {
+  transparent?: boolean;
+}
+
+export const Navbar = ({ transparent = false }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const floating = transparent && !scrolled && !isOpen;
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        floating
+          ? "border-b border-transparent bg-transparent"
+          : "border-b border-border bg-background/85 backdrop-blur-xl"
+      }`}
+    >
+      <nav className="container" aria-label="Main">
+        <div className="flex h-20 items-center justify-between gap-6">
           <Link to="/" className="flex items-center gap-3">
-            <img 
-              src={nexusLogo} 
-              alt="Nexus X Industries" 
-              className="h-10 w-auto"
-            />
-            <span className="font-display font-semibold text-xl text-foreground hidden sm:block">
+            <img src={nexusLogo} alt="Nexus X Industries logo" className="h-9 w-auto" />
+            <span
+              className={`hidden font-display text-lg font-semibold sm:block ${
+                floating ? "text-midnight-foreground" : "text-foreground"
+              }`}
+            >
               Nexus X Industries
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+          <div className="hidden items-center gap-6 lg:flex">
+            {navLinks.slice(1, -1).map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
                   location.pathname === link.href
                     ? "text-primary"
-                    : "text-muted-foreground"
+                    : floating
+                      ? "text-midnight-foreground/75"
+                      : "text-muted-foreground"
                 }`}
               >
                 {link.label}
@@ -49,42 +74,44 @@ export const Navbar = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button asChild className="glow-cyan">
+          <div className="hidden items-center gap-2 lg:flex">
+            <ThemeToggle className={floating ? "text-midnight-foreground hover:text-midnight-foreground" : ""} />
+            <Button asChild className="rounded-full font-semibold">
               <Link to="/contact">Partner With Us</Link>
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-foreground"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex items-center gap-1 lg:hidden">
+            <ThemeToggle className={floating ? "text-midnight-foreground" : ""} />
+            <button
+              className={`flex h-11 w-11 items-center justify-center rounded-full ${
+                floating ? "text-midnight-foreground" : "text-foreground"
+              }`}
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+            >
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <div className="flex flex-col gap-4">
+          <div className="border-t border-border py-5 lg:hidden">
+            <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   to={link.href}
                   onClick={() => setIsOpen(false)}
-                  className={`text-sm font-medium transition-colors hover:text-primary py-2 ${
-                    location.pathname === link.href
-                      ? "text-primary"
-                      : "text-muted-foreground"
+                  className={`rounded-md px-2 py-2.5 text-sm font-medium transition-colors hover:text-primary ${
+                    location.pathname === link.href ? "text-primary" : "text-muted-foreground"
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
-              <Button asChild className="mt-4 glow-cyan">
+              <Button asChild className="mt-4 rounded-full font-semibold">
                 <Link to="/contact" onClick={() => setIsOpen(false)}>
                   Partner With Us
                 </Link>
@@ -92,7 +119,7 @@ export const Navbar = () => {
             </div>
           </div>
         )}
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 };

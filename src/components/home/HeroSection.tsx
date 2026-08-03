@@ -1,70 +1,97 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowRight, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { OrbitalCanvas } from "./OrbitalCanvas";
-import { ArrowRight } from "lucide-react";
+import { GlobeCanvas } from "./GlobeCanvas";
 
-export const HeroSection = () => {
-  return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-grid">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-radial-gradient" />
-      
-      {/* Orbital animation */}
-      <div className="absolute inset-0">
-        <OrbitalCanvas />
+export const HeroSection = () => (
+  <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-midnight-gradient pt-24 text-midnight-foreground">
+    <div className="absolute inset-0 bg-line-grid opacity-70" />
+    <div className="absolute -left-24 top-24 h-[380px] w-[380px] rounded-full bg-primary/25 blur-[150px] animate-glow-pulse" />
+    <div className="absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-accent/20 blur-[160px] animate-glow-pulse" />
+
+    <div className="container relative z-10 grid items-center gap-16 py-20 lg:grid-cols-[1.05fr_1fr]">
+      <div>
+        <motion.span
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 rounded-full border border-midnight-foreground/15 bg-midnight-foreground/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-accent"
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          Africa's Digital Infrastructure Company
+        </motion.span>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-7 font-display text-4xl font-bold leading-[1.06] sm:text-5xl lg:text-[3.75rem]"
+        >
+          Building Africa's Digital Infrastructure for the{" "}
+          <span className="text-gradient">Next Generation</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-7 max-w-xl text-lg leading-relaxed text-midnight-foreground/70"
+        >
+          We develop AI-powered digital infrastructure that enables governments, enterprises and
+          millions of people to participate in Africa's digital economy.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="mt-10 flex flex-wrap gap-4"
+        >
+          <Button asChild size="lg" className="rounded-full px-7 text-base font-semibold shadow-elevated">
+            <Link to="/platforms">
+              Explore Our Platforms
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            variant="outline"
+            className="rounded-full border-midnight-foreground/25 bg-transparent px-7 text-base font-semibold text-midnight-foreground hover:bg-midnight-foreground/10 hover:text-midnight-foreground"
+          >
+            <Link to="/contact">Partner With Us</Link>
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            variant="ghost"
+            className="rounded-full px-5 text-base font-semibold text-midnight-foreground/80 hover:bg-midnight-foreground/10 hover:text-midnight-foreground"
+          >
+            <Link to="/innovation">
+              <PlayCircle className="mr-2 h-5 w-5" />
+              Watch Our Vision
+            </Link>
+          </Button>
+        </motion.div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight mb-8 opacity-0 animate-fade-in"
-            style={{ animationDelay: "0.2s" }}
-          >
-            Building the{" "}
-            <span className="text-gradient">Orbital Intelligence Layer</span>{" "}
-            for Emerging Markets
-          </h1>
-          
-          <p 
-            className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed opacity-0 animate-fade-in"
-            style={{ animationDelay: "0.4s" }}
-          >
-            Nexus X Industries designs space-based and digital infrastructure 
-            that delivers resilient connectivity, precision services, and 
-            national-scale capability — starting with Nigeria.
-          </p>
-
-          <div 
-            className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-in"
-            style={{ animationDelay: "0.6s" }}
-          >
-            <Button 
-              asChild 
-              size="lg" 
-              className="glow-cyan text-base px-8 py-6"
-            >
-              <Link to="/product">
-                Explore Project Helios-NG
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-            <Button 
-              asChild 
-              variant="outline" 
-              size="lg"
-              className="text-base px-8 py-6 border-border hover:bg-secondary"
-            >
-              <Link to="/contact">
-                Partner With Us
-              </Link>
-            </Button>
-          </div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.94 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="relative h-[380px] sm:h-[460px] lg:h-[560px]"
+      >
+        <GlobeCanvas />
+        <div className="glass absolute left-0 top-8 hidden rounded-2xl px-5 py-4 animate-float sm:block">
+          <p className="text-xs uppercase tracking-[0.14em] text-midnight-foreground/55">Network uptime</p>
+          <p className="mt-1 font-display text-2xl font-semibold text-midnight-foreground">99.98%</p>
         </div>
-      </div>
-
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
-    </section>
-  );
-};
+        <div className="glass absolute bottom-10 right-0 hidden rounded-2xl px-5 py-4 animate-float-slow sm:block">
+          <p className="text-xs uppercase tracking-[0.14em] text-midnight-foreground/55">Countries in scope</p>
+          <p className="mt-1 font-display text-2xl font-semibold text-midnight-foreground">54</p>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);
