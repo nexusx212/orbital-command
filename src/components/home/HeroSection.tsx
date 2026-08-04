@@ -97,6 +97,36 @@ export const HeroSection = () => (
             </Link>
           </Button>
         </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="mt-12 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4"
+        >
+          {heroStats.map((stat) => (
+            <div
+              key={stat.label}
+              className="glass rounded-2xl px-4 py-4 text-center sm:px-3 sm:py-5"
+            >
+              <p className="font-display text-2xl font-bold text-gradient sm:text-3xl">
+                {stat.display ? (
+                  stat.display
+                ) : (
+                  <Counter
+                    value={stat.value}
+                    prefix={stat.prefix}
+                    suffix={stat.suffix}
+                    duration={1800}
+                  />
+                )}
+              </p>
+              <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-midnight-foreground/60 sm:text-xs">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       <motion.div
