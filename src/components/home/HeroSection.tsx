@@ -3,7 +3,15 @@ import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlobeCanvas } from "./GlobeCanvas";
+import { Counter } from "@/components/shared/Counter";
 import heroBackground from "@/assets/hero-background.jpg";
+
+const heroStats = [
+  { value: 54, label: "African Countries" },
+  { value: 100, suffix: "M+", label: "Potential Users" },
+  { value: 99.98, suffix: "%", label: "Target Network Uptime", display: "99.98%" },
+  { value: 100, prefix: "$", suffix: "B+", label: "Economic Enablement" },
+];
 
 export const HeroSection = () => (
   <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-midnight-gradient pt-24 text-midnight-foreground">
@@ -88,6 +96,36 @@ export const HeroSection = () => (
               Watch Our Vision
             </Link>
           </Button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="mt-12 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4"
+        >
+          {heroStats.map((stat) => (
+            <div
+              key={stat.label}
+              className="glass rounded-2xl px-4 py-4 text-center sm:px-3 sm:py-5"
+            >
+              <p className="font-display text-2xl font-bold text-gradient sm:text-3xl">
+                {stat.display ? (
+                  stat.display
+                ) : (
+                  <Counter
+                    value={stat.value}
+                    prefix={stat.prefix}
+                    suffix={stat.suffix}
+                    duration={1800}
+                  />
+                )}
+              </p>
+              <p className="mt-1 text-[11px] font-medium uppercase tracking-wider text-midnight-foreground/60 sm:text-xs">
+                {stat.label}
+              </p>
+            </div>
+          ))}
         </motion.div>
       </div>
 
