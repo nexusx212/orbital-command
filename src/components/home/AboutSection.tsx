@@ -1,9 +1,11 @@
 import { Reveal } from "@/components/shared/Reveal";
 import { ShieldCheck, Layers, Sparkles } from "lucide-react";
+import aboutOperations from "@/assets/about-operations.jpg";
 
 export const AboutSection = () => (
   <section className="py-24">
     <div className="container grid gap-16 lg:grid-cols-[1fr_1fr] lg:items-center">
+
       <div>
         <Reveal>
           <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">About Nexus X</span>
@@ -29,9 +31,26 @@ export const AboutSection = () => (
             </p>
           </div>
         </Reveal>
+        <Reveal delay={0.15}>
+          <div className="relative mt-10 overflow-hidden rounded-3xl border border-border shadow-elevated">
+            <img
+              src={aboutOperations}
+              alt="Nexus X engineers monitoring digital infrastructure across Africa"
+              loading="lazy"
+              width={1280}
+              height={960}
+              className="h-[300px] w-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-midnight/70 to-transparent" />
+            <p className="absolute bottom-5 left-6 text-sm font-semibold text-midnight-foreground">
+              Nexus X Network Operations
+            </p>
+          </div>
+        </Reveal>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
+
         {[
           {
             icon: Layers,

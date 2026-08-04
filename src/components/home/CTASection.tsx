@@ -2,11 +2,22 @@ import { Link } from "react-router-dom";
 import { Reveal } from "@/components/shared/Reveal";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import ctaNetwork from "@/assets/cta-network.jpg";
 
 export const CTASection = () => (
   <section className="relative overflow-hidden bg-midnight-gradient py-24 text-midnight-foreground">
+    <img
+      src={ctaNetwork}
+      alt="Connected digital network across Africa"
+      loading="lazy"
+      width={1600}
+      height={912}
+      className="absolute inset-0 h-full w-full object-cover opacity-40"
+    />
+    <div className="absolute inset-0 bg-midnight/60" />
     <div className="absolute inset-0 bg-line-grid opacity-60" />
     <div className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/25 blur-[160px] animate-glow-pulse" />
+
     <div className="container relative z-10 text-center">
       <Reveal>
         <h2 className="mx-auto max-w-3xl font-display text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
