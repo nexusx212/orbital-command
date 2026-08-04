@@ -3,7 +3,15 @@ import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlobeCanvas } from "./GlobeCanvas";
+import { Counter } from "@/components/shared/Counter";
 import heroBackground from "@/assets/hero-background.jpg";
+
+const heroStats = [
+  { value: 54, label: "African Countries" },
+  { value: 100, suffix: "M+", label: "Potential Users" },
+  { value: 99.98, suffix: "%", label: "Target Network Uptime", display: "99.98%" },
+  { value: 100, prefix: "$", suffix: "B+", label: "Economic Enablement" },
+];
 
 export const HeroSection = () => (
   <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-midnight-gradient pt-24 text-midnight-foreground">
