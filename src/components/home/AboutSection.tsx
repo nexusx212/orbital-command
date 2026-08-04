@@ -1,9 +1,11 @@
 import { Reveal } from "@/components/shared/Reveal";
 import { ShieldCheck, Layers, Sparkles } from "lucide-react";
+import aboutOperations from "@/assets/about-operations.jpg";
 
 export const AboutSection = () => (
   <section className="py-24">
     <div className="container grid gap-16 lg:grid-cols-[1fr_1fr] lg:items-center">
+
       <div>
         <Reveal>
           <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">About Nexus X</span>
