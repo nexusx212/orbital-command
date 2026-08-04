@@ -3,9 +3,24 @@ import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlobeCanvas } from "./GlobeCanvas";
+import heroBackground from "@/assets/hero-background.jpg";
 
 export const HeroSection = () => (
   <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-midnight-gradient pt-24 text-midnight-foreground">
+    {/* Background image */}
+    <div className="absolute inset-0">
+      <img
+        src={heroBackground}
+        alt=""
+        aria-hidden="true"
+        width={1920}
+        height={1080}
+        className="h-full w-full object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-midnight/70" />
+      <div className="absolute inset-0 bg-gradient-to-r from-midnight via-midnight/80 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-midnight/40" />
+    </div>
     <div className="absolute inset-0 bg-line-grid opacity-70" />
     <div className="absolute -left-24 top-24 h-[380px] w-[380px] rounded-full bg-primary/25 blur-[150px] animate-glow-pulse" />
     <div className="absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-accent/20 blur-[160px] animate-glow-pulse" />
